@@ -77,7 +77,7 @@ A hidden command reveals a small ASCII cat:
 
 ## Conclusion 🎯
 
-This project serves as both a creative resume presentation and a demonstration of front-end fundamentals using only HTML, CSS, and JavaScript. It highlights interactive UI design, command parsing logic, and clean code organization. 
+This project serves as both a creative resume presentation and a demonstration of front-end fundamentals using only HTML, CSS, and JavaScript. It highlights interactive UI design, command parsing logic, and clean code organization.
 
 Feel free to explore the console, review the source code, or reach out with feedback or opportunities.💬🤝
 
@@ -86,3 +86,4 @@ Feel free to explore the console, review the source code, or reach out with feed
 Made with ❤️, JavaScript, and too much coffee ☕
 
 </div>
+
