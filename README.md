@@ -87,14 +87,3 @@ Made with ❤️, JavaScript, and too much coffee ☕
 
 </div>
 
----
-
-## Share updates on GitHub ⬆️
-
-If you want to publish changes from your local clone back to GitHub, use these steps:
-
-1. **Check your remote:** confirm the repository points at your GitHub URL with `git remote -v`. If needed, set it with `git remote add origin https://github.com/<your-username>/console-resume.git`.
-2. **Review your work:** run `git status` to see which files changed, then inspect diffs with `git diff`.
-3. **Stage and commit:** add your changes (`git add .` or specific files), then create a descriptive commit (`git commit -m "Your message"`).
-4. **Push to GitHub:** send the branch to your repo with `git push origin <branch-name>` (for example, `main` or another feature branch).
-5. **Open a pull request (optional):** if you work on a fork or separate branch, open a PR on GitHub so others can review and merge your updates.
