@@ -46,7 +46,7 @@
       #000000;
   }
 
-  /* terminal window */
+  /* terminal window container and overall frame */
   .terminal-wrapper {
     width: 100%;
     max-width: 900px;
@@ -60,7 +60,7 @@
       0 0 18px rgba(192,203,255,0.35);
   }
 
-  /* header bar */
+  /* header bar styled like macOS traffic lights */
   .terminal-header {
     display: flex;
     align-items: center;
@@ -94,7 +94,7 @@
     text-shadow: 0 0 4px rgba(255,255,255,0.7);
   }
 
-  /* main scrollable terminal area */
+  /* main scrollable terminal area where command output appears */
   .terminal-body {
     padding: 14px 16px;
     height: 70vh;
@@ -105,8 +105,8 @@
     background: radial-gradient(circle at top left, #1d1d1d 0%, #111111 60%, #0a0a0a 100%);
   }
 
-  /* bottom prompt area */
-  .terminal-wrapper > .terminal-body:last-of-type {
+  /* bottom prompt area that hosts the interactive input */
+  .terminal-prompt {
     height: auto;
     max-height: none;
     background: #141414;
@@ -241,6 +241,7 @@
 
 </head>
 <body>
+<!-- Outer shell for the faux terminal window -->
 <div class="terminal-wrapper">
   <div class="terminal-header">
     <div class="traffic-lights">
@@ -252,13 +253,15 @@
     <div style="width: 40px;"></div>
   </div>
 
+  <!-- Scrollable output area where prior commands are rendered -->
   <div class="terminal-body" id="terminal">
     <div class="line muted">Last login: just now on pts/1</div>
     <div class="line muted">Type <span class="command">help</span> to see available commands.</div>
     <br>
   </div>
 
-  <div class="terminal-body" style="border-top: 1px solid #313244; height: auto; max-height: none;">
+  <!-- Static prompt area that holds the editable command input -->
+  <div class="terminal-body terminal-prompt">
     <div class="prompt-line">
       <span class="prompt-label">stephtacular</span>
       <span class="prompt-path">@github:~</span>
@@ -277,9 +280,16 @@
 </div>
 
 <script>
+  /*
+   * Lightweight terminal simulation.
+   * - resumeData holds the content for each command.
+   * - commands maps command names to their handlers.
+   * - helper functions render lines and echo prompts to the DOM.
+   */
   const terminal = document.getElementById("terminal");
   const input = document.getElementById("commandInput");
 
+  // Centralized resume payload used by command handlers
   const resumeData = {
     name: "Stephanie Hahn",
     title: "Cybersecurity Professional · Software Engineering Student (WGU, Java Track)",
@@ -361,6 +371,7 @@
     ]
   };
 
+  // Available commands and their behaviors
   const commands = {
     help() {
       printLines([
@@ -451,6 +462,7 @@ about() {
     }
   };
 
+  // Utility: render each provided line with optional styling
   function printLines(lines, extraClass = "") {
     lines.forEach(text => {
       const div = document.createElement("div");
@@ -461,6 +473,7 @@ about() {
     terminal.scrollTop = terminal.scrollHeight;
   }
 
+  // Utility: echo a prompt + command to mimic terminal history
   function printPromptEcho(commandText) {
     const wrapper = document.createElement("div");
     wrapper.className = "line";
@@ -486,6 +499,12 @@ about() {
     terminal.scrollTop = terminal.scrollHeight;
   }
 
+  // Keep the input focused even if users click around the terminal
+  document.querySelector(".terminal-wrapper").addEventListener("click", () => {
+    input.focus();
+  });
+
+  // Primary dispatcher for user commands
   function handleCommand(raw) {
     const inputVal = raw.trim();
     printPromptEcho(raw);
@@ -516,6 +535,7 @@ about() {
     }
   }
 
+  // Submit on Enter and clear the input value
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const value = input.value;
@@ -524,6 +544,7 @@ about() {
     }
   });
 
+  // Ensure the input has focus on initial load
   window.addEventListener("load", () => {
     input.focus();
   });
